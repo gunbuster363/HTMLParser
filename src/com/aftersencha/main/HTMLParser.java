@@ -1,5 +1,8 @@
 package com.aftersencha.main;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,10 +32,6 @@ public class HTMLParser {
 		
 		Document doc = Jsoup.connect( url ).userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6").referrer("http://www.google.com").get();		
 		
-		//String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-		//PrintWriter pw = new PrintWriter("hotelSource_"+timeStamp+".txt");
-		//pw.write(doc.toString());
-		//pw.close();
 		
 		//Get hotel name
 		hotelName = htmlParser.getHotelName( doc, "hp_hotel_name" );
@@ -65,6 +64,11 @@ public class HTMLParser {
 		
 		jsonArray2 = htmlParser.getOtherHotels( doc, "althotelsTable" );
 		json.put( "Other Hotels", jsonArray2 );
+		
+		String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+		PrintWriter pw = new PrintWriter("ParsedHTML_"+timeStamp+".txt");
+		pw.write(json.toString(4));
+		pw.close();
 		
 		System.out.println(json.toString(4)); 
 	}
