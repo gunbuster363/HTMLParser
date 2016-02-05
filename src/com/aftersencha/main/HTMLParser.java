@@ -14,6 +14,43 @@ import org.jsoup.select.Elements;
 
 public class HTMLParser {
 	
+	protected String targetUrl = "http://www.booking.com/hotel/hk/w-hong-kong.en-gb.html";
+	protected String userAgent = "Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6";
+	protected String referrer = "http://www.google.com";
+	protected Document doc = null;
+	
+	public void setUserAgent( String userAgent ){
+		this.userAgent = userAgent;
+	}
+	
+	public String getUserAgent (){
+		return this.userAgent;
+	}
+	
+	public void setReferrer( String referrer ){
+		this.referrer = referrer;
+	}
+	
+	public String getReferrer(){
+		return this.referrer;
+	}
+	
+	public void setDocument() throws IOException{
+		this.doc = Jsoup.connect(this.targetUrl).userAgent(this.userAgent).referrer(this.referrer).get();
+	}
+	
+	public Document getDocument(){
+		return this.doc;
+	}
+	
+	public void setTargetUrl( String url ){
+		this.targetUrl = url;
+	}
+	
+	public String getTargetUrl (){
+		return this.targetUrl;
+	}
+	
 	public static void main ( String[] args ) throws IOException, JSONException{
 		
 		JSONObject json = new JSONObject();
@@ -27,42 +64,39 @@ public class HTMLParser {
 		double reviewPoint = 0.0;				
 		
 		HTMLParser htmlParser = new HTMLParser();
-		
-		String url = "http://www.booking.com/hotel/hk/w-hong-kong.en-gb.html";
-		
-		Document doc = Jsoup.connect( url ).userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6").referrer("http://www.google.com").get();		
+		htmlParser.setDocument();								
 		
 		
 		//Get hotel name
-		hotelName = htmlParser.getHotelName( doc, "hp_hotel_name" );
+		hotelName = htmlParser.getHotelName( "hp_hotel_name" );
 		json.put( "Hotel Name", hotelName );
 		
 		
 		//Get hotel address
-		hotelAddress = htmlParser.getHotelAddress( doc, "hp_address_subtitle" );
+		hotelAddress = htmlParser.getHotelAddress( "hp_address_subtitle" );
 		json.put( "Hotel Address", hotelAddress );
 		
 		//Get hotel stars
-		hotelStarNumber = htmlParser.getHotelStar( doc, "star_track" );
+		hotelStarNumber = htmlParser.getHotelStar( "star_track" );
 		json.put( "Stars", hotelStarNumber );
 		
 		//Get review point
-		reviewPoint = htmlParser.getReviewPoint( doc, "js--hp-scorecard-scoreval" );
+		reviewPoint = htmlParser.getReviewPoint( "js--hp-scorecard-scoreval" );
 		json.put( "Review Points", reviewPoint );
 		
 		//Get number of reviews
-		numberOfReviews = htmlParser.getNumberOfReviews( doc, "score_from_number_of_reviews" );
+		numberOfReviews = htmlParser.getNumberOfReviews( "score_from_number_of_reviews" );
 		json.put( "Number of Reviews", numberOfReviews );
 		
 		//Get description
-		description = htmlParser.getDescription( doc, "summary" );
+		description = htmlParser.getDescription( "summary" );
 		json.put( "Description", description );
 		
 		//Get room types
-		jsonArray1 = htmlParser.getRoomTypes( doc, "maxotel_rooms" );
+		jsonArray1 = htmlParser.getRoomTypes( "maxotel_rooms" );
 		json.put( "Room Types", jsonArray1 );
 		
-		jsonArray2 = htmlParser.getOtherHotels( doc, "althotelsTable" );
+		jsonArray2 = htmlParser.getOtherHotels( "althotelsTable" );
 		json.put( "Other Hotels", jsonArray2 );
 		
 		String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
@@ -73,14 +107,14 @@ public class HTMLParser {
 		System.out.println(json.toString(4)); 
 	}
 	
-	public String getHotelName( Document doc, String selector ){
+	public String getHotelName( String selector ){
 		/*
 		 <span class="fn" id="hp_hotel_name">VP Hotel</span>
 		 */
 		
 		String hotelName = "NULL";
 		
-		Element tempElement = doc.getElementById( selector );		
+		Element tempElement = this.doc.getElementById( selector );		
 		if ( tempElement != null ){
 			hotelName = tempElement.text();			
 		}
@@ -88,7 +122,7 @@ public class HTMLParser {
 		return hotelName;
 	}
 	
-	public String getHotelAddress ( Document doc, String selector ){
+	public String getHotelAddress ( String selector ){
 		/*
 		 <span class="hp_address_subtitle jq_tooltip" rel="14" itemprop="address" data-source="top_link" data-coords="," data-node_tt_id="location_score_tooltip" data-bbox="114.148546189026,22.276984712595,114.179556369781,22.3742122996183" data-width="350" title="">
 149 Lai Chi Kok Road, Prince Edward, Tai Kok Tsui, Hong Kong, Hong Kong
@@ -97,7 +131,7 @@ public class HTMLParser {
 		
 		String hotelAddress = "NULL";
 		
-		Elements tempElements = doc.getElementsByClass( selector );		
+		Elements tempElements = this.doc.getElementsByClass( selector );		
 		if ( !tempElements.isEmpty() ){
 			hotelAddress = tempElements.first().text();			
 		}
@@ -105,7 +139,7 @@ public class HTMLParser {
 		return hotelAddress;
 	}
 	
-	public int getHotelStar ( Document doc, String selector ){
+	public int getHotelStar (  String selector ){
 		/*
 		 <i class="b-sprite stars ratings_stars_2  star_track" title="2-star hotel"
 			data-component="track" data-track="view" data-hash="YdVPYKDcdSBGRRaGaAUC" data-stage="1">	
@@ -115,7 +149,7 @@ public class HTMLParser {
 		
 		String hotelStar = "NULL";
 		int starNumber = 0;
-		Elements tempElements = doc.getElementsByClass( selector );
+		Elements tempElements = this.doc.getElementsByClass( selector );
 		if ( !tempElements.isEmpty() ){
 			hotelStar = tempElements.first().child(0).text() ;
 			hotelStar = hotelStar.replaceAll("\\D+","");
@@ -127,12 +161,12 @@ public class HTMLParser {
 	
 	}
 	
-	public double getReviewPoint( Document doc, String selector ){
+	public double getReviewPoint( String selector ){
 		/*
 		 <span class="average js--hp-scorecard-scoreval">7.3</span>
 		 */
 		double reviewPoint = 0.0;
-		Elements tempElements = doc.getElementsByClass( selector );
+		Elements tempElements = this.doc.getElementsByClass( selector );
 		if ( !tempElements.isEmpty() ){
 			reviewPoint = Double.parseDouble( tempElements.first().text() );
 		}
@@ -140,21 +174,21 @@ public class HTMLParser {
 		
 	}
 	
-	public int getNumberOfReviews( Document doc, String selector ){
+	public int getNumberOfReviews( String selector ){
 		/*
 		  <span class="trackit score_from_number_of_reviews">
 				Score from <strong class="count">198</strong> reviews
 			</span>
 		 */
 		int numberOfReviews = 0;
-		Elements tempElements = doc.getElementsByClass( selector );
+		Elements tempElements = this.doc.getElementsByClass( selector );
 		if ( !tempElements.isEmpty() ){
 			numberOfReviews = Integer.parseInt( tempElements.first().child(0).text() );
 		}
 		return numberOfReviews;
 	}
 	
-	public String getDescription( Document doc, String selector ){
+	public String getDescription( String selector ){
 		/*
 		  <div class="hp_hotel_description_hightlights_wrapper ">
           <div class="hotel_description_wrapper_exp hp-description">
@@ -180,22 +214,22 @@ public class HTMLParser {
 		 */
 		String description = "NULL";
 		
-		Element tempElement = doc.getElementById( selector );		
+		Element tempElement = this.doc.getElementById( selector );		
 		if ( tempElement != null ){
 			description = tempElement.text() + System.getProperty("line.separator");;			
 		}
 		
-		Elements tempElements = doc.getElementsByClass( "geo_information" );
+		Elements tempElements = this.doc.getElementsByClass( "geo_information" );
 		if ( !tempElements.isEmpty() ){
 			description = description + tempElements.first().text() + System.getProperty("line.separator");;
 		}
 		
-		Elements tempElements2 = doc.getElementsByClass( "hp-desc-we-speak" );
+		Elements tempElements2 = this.doc.getElementsByClass( "hp-desc-we-speak" );
 		if ( !tempElements2.isEmpty() ){
 			description = description + tempElements2.first().text() + System.getProperty("line.separator");;
 		}
 		
-		Elements tempElements3 = doc.getElementsByClass( "hotel_meta_style" );
+		Elements tempElements3 = this.doc.getElementsByClass( "hotel_meta_style" );
 		if ( !tempElements3.isEmpty() ){
 			description = description + tempElements3.first().text() ;
 		}
@@ -203,7 +237,7 @@ public class HTMLParser {
 		return description;
 	}
 	
-	public JSONArray getRoomTypes( Document doc, String selector ) throws JSONException{
+	public JSONArray getRoomTypes( String selector ) throws JSONException{
 		/*
 		  <table border="2" cellspacing="0" class="roomstable rt_no_dates __big-buttons rt_lightbox_enabled " id="maxotel_rooms">
             <thead>
@@ -246,7 +280,7 @@ public class HTMLParser {
 		JSONArray jsonArray = new JSONArray();
 		
 		
-		Element tempElement = doc.getElementById( selector );		
+		Element tempElement = this.doc.getElementById( selector );		
 		if ( tempElement != null ){
 			Elements rooms = tempElement.child(1).children();
 			for(Iterator<Element> iterator = rooms.iterator(); iterator.hasNext(); ) {
@@ -266,7 +300,7 @@ public class HTMLParser {
 		
 	}
 	
-	public JSONArray getOtherHotels( Document doc, String selector ) throws JSONException{
+	public JSONArray getOtherHotels(  String selector ) throws JSONException{
 		/*
 		  During development, it was found the webpage return a slight different webpage so that the source were different.
 		  
@@ -304,7 +338,7 @@ public class HTMLParser {
 		JSONObject json = null;
 		JSONArray jsonArray = new JSONArray();
 		
-		tempElement1 = doc.getElementById( selector );		//Table
+		tempElement1 = this.doc.getElementById( selector );		//Table
 		if ( tempElement1 != null ){
 			hotelTds = tempElement1.child(0).child(0).children(); //Table > tr > td
 			

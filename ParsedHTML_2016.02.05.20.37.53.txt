@@ -1,0 +1,60 @@
+{
+    "Hotel Name": "W Hong Kong",
+    "Description": "Inspired by nature, the chic W Hong Kong towers over busy West Kowloon with its 76th floor outdoor pool, pampering spa treatments and its 73rd floor 24-hour gym. The hotel showcases exceptional décor and architecture from the world's top designers. Overlooking the city or harbour, the stylish air-conditioned rooms all come with a 42-inch flat-screen TV, an iPod dock and an extensive media library. The feather bed is fitted with 400-thread-count bedsheets. En suite bathrooms have a 15-inch flat-screen TV, a soaking tub and soft bathrobes. W Hong Kong is located just above Kowloon MTR Station and is directly connected to the luxurious Elements Shopping Mall. Riding on the hotel's fleet of Audi Q7 limousines, it is just an 8-minute drive from the trendy bars and restaurants of Soho and Lan Kwai Fong. Bliss® Spa features a relaxing menu of body massage and beauty treatments, as well as healthy snacks and its unique Brownie Buffet. Sauna and steam rooms are also available. The WIRED Business Centre provides computer work stations and secretarial services. Delicious international buffet spreads are offered at Kitchen, while the elegant Sing Yin Cantonese Dining serves seafood delights and Dim Sum buffets. Regular parties with live DJ performances can be enjoyed at WOOBAR. About the neighbourhood This neighbourhood is a great choice for travellers interested in Shopping for clothes, Luxury Brand Shopping and Gourmet Food\nThis area is also great for shopping, with popular brands nearby: Cartier, H&M, Zara, Chanel, Burberry\nLooking for staff who speak English? Then this property is a good choice for you.\nThis property has been on Booking.com since 20 Mar 2012. Hotel Rooms: 393, Hotel Chain: W Hotels",
+    "Number of Reviews": 388,
+    "Stars": 5,
+    "Hotel Address": "1 Austin Road West, Kowloon West, Hong Kong, Hong Kong",
+    "Review Points": 8.7,
+    "Other Hotels": [
+        {
+            "Hotel Name": "Renaissance Hong Kong Harbour View Hotel",
+            "Description": "Featuring an award-winning restaurant overlooking Victoria Harbour, Renaissance Harbour View Hong Kong, a Marriott Luxury & Lifestyle Hotel in Hong Kong, is set on scenic Wanchai Waterfront.",
+            "Stars": 5,
+            "Review Score": 8.2
+        },
+        {
+            "Hotel Name": "Hotel ICON",
+            "Description": "Designed by famous local architects, the stylish Hotel ICON enjoys harbour views in Tsimshatsui East Kowloon. It presents a rooftop outdoor heated pool, pampering spa services and a health club.",
+            "Stars": 5,
+            "Review Score": 9.2
+        },
+        {
+            "Hotel Name": "Kowloon Shangri-La",
+            "Description": "Located in the lively Tsim Sha Tsui District, Kowloon Shangri-La overlooks Victoria Harbour. The luxurious hotel boasts 7 dining options, indoor pool and rooms with free wired internet.",
+            "Stars": 5,
+            "Review Score": 8.9
+        },
+        {
+            "Hotel Name": "InterContinental Hong Kong",
+            "Description": "Five-star InterContinental Hong Kong Hotel enjoys a waterfront location.",
+            "Stars": 5,
+            "Review Score": 9
+        }
+    ],
+    "Room Types": [
+        {
+            "Max Occupancy": 2,
+            "Room Name": "Cool Corner King Room"
+        },
+        {
+            "Max Occupancy": 2,
+            "Room Name": "Wonderful King or Twin Room"
+        },
+        {
+            "Max Occupancy": 2,
+            "Room Name": "Spectacular King or Twin Room"
+        },
+        {
+            "Max Occupancy": 2,
+            "Room Name": "Fabulous King or Twin room"
+        },
+        {
+            "Max Occupancy": 2,
+            "Room Name": "Fantastic Suite"
+        },
+        {
+            "Max Occupancy": 2,
+            "Room Name": "Marvelous Suite"
+        }
+    ]
+}
