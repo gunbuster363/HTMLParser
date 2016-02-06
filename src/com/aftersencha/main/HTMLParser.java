@@ -54,14 +54,15 @@ public class HTMLParser {
 	public static void main ( String[] args ) throws IOException, JSONException{
 		
 		JSONObject json = new JSONObject();
-		JSONArray jsonArray1 = null;
-		JSONArray jsonArray2 = null;
-		String hotelName = null;
-		String hotelAddress = null;
-		String description = null;
-		int hotelStarNumber = 0;
-		int numberOfReviews = 0;
-		double reviewPoint = 0.0;				
+		JSONArray jsonArray1;
+		JSONArray jsonArray2;
+		String hotelName;
+		String hotelAddress;
+		String description;
+		int hotelStarNumber;
+		int numberOfReviews;
+		double reviewPoint;	
+		
 		
 		HTMLParser htmlParser = new HTMLParser();
 		htmlParser.setDocument();								
@@ -272,11 +273,11 @@ public class HTMLParser {
              </tr>
 
 		 */
-		Element room = null;		
-		String roomName = null;
-		int maxOccupancy = 0;
+		Element room;		
+		String roomName;
+		int maxOccupancy;
 		
-		JSONObject json = null;
+		JSONObject json;
 		JSONArray jsonArray = new JSONArray();
 		
 		
@@ -325,17 +326,17 @@ public class HTMLParser {
 
 		  	 
 		  	 */
-		Elements hotelTds = null;
-		Elements tempElements1 = null;
-		Elements tempElements2 = null;		
-		Element hotelTd = null;
-		Element tempElement1 = null;		
-		String hotelName = null;
-		String description = null;
+		Elements hotelTds;
+		Elements tempElements1;
+		Elements tempElements2;		
+		Element hotelTd;
+		Element tempElement1;		
+		String hotelName;
+		String description= null;
 		int hotelStar = 0;
 		double hotelScore = 0.0;
 		
-		JSONObject json = null;
+		JSONObject json;
 		JSONArray jsonArray = new JSONArray();
 		
 		tempElement1 = this.doc.getElementById( selector );		//Table
