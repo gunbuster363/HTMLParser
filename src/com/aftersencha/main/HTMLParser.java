@@ -14,10 +14,10 @@ import org.jsoup.select.Elements;
 
 public class HTMLParser {
 	
-	protected String targetUrl = "http://www.booking.com/hotel/hk/w-hong-kong.en-gb.html";
-	protected String userAgent = "Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6";
-	protected String referrer = "http://www.google.com";
-	protected Document doc = null;
+	private String targetUrl = "http://www.booking.com/hotel/hk/w-hong-kong.en-gb.html";
+	private String userAgent = "Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6";
+	private String referrer = "http://www.google.com";
+	private Document doc = null;
 	
 	public void setUserAgent( String userAgent ){
 		this.userAgent = userAgent;
@@ -54,14 +54,14 @@ public class HTMLParser {
 	public static void main ( String[] args ) throws IOException, JSONException{
 		
 		JSONObject json = new JSONObject();
-		JSONArray jsonArray1;
-		JSONArray jsonArray2;
-		String hotelName;
-		String hotelAddress;
-		String description;
-		int hotelStarNumber;
-		int numberOfReviews;
-		double reviewPoint;	
+		JSONArray jsonArray1 = null;
+		JSONArray jsonArray2 = null;
+		String hotelName = null;
+		String hotelAddress = null;
+		String description = null;
+		int hotelStarNumber = 0;
+		int numberOfReviews = 0;
+		double reviewPoint = 0.0;	
 		
 		
 		HTMLParser htmlParser = new HTMLParser();
@@ -273,11 +273,11 @@ public class HTMLParser {
              </tr>
 
 		 */
-		Element room;		
-		String roomName;
-		int maxOccupancy;
+		Element room = null;		
+		String roomName = null;
+		int maxOccupancy = 0;
 		
-		JSONObject json;
+		JSONObject json = null;
 		JSONArray jsonArray = new JSONArray();
 		
 		
@@ -326,17 +326,17 @@ public class HTMLParser {
 
 		  	 
 		  	 */
-		Elements hotelTds;
-		Elements tempElements1;
-		Elements tempElements2;		
-		Element hotelTd;
-		Element tempElement1;		
-		String hotelName;
+		Elements hotelTds = null;
+		Elements tempElements1 = null;
+		Elements tempElements2 = null;		
+		Element hotelTd = null;
+		Element tempElement1 = null;		
+		String hotelName = null;
 		String description= null;
 		int hotelStar = 0;
 		double hotelScore = 0.0;
 		
-		JSONObject json;
+		JSONObject json = null;
 		JSONArray jsonArray = new JSONArray();
 		
 		tempElement1 = this.doc.getElementById( selector );		//Table
